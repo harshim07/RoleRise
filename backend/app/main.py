@@ -29,8 +29,17 @@ from .services.jobs import is_expired, job_catalog
 from .security import create_access_token, decode_access_token, password_hash
 
 app = FastAPI(title="RoleRise API", version="1.0.0")
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,https://role-rise-frontend.vercel.app").split(",")
-app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+# Clean up whitespace from split origins
+origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,https://role-rise-frontend.vercel.app").split(",") if origin.strip()]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Safely allows all Vercel preview & production deployments automatically
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 bearer = HTTPBearer(auto_error=False)
 DB = Annotated[Session, Depends(get_db)]
 def current_user(credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)], db: DB):
