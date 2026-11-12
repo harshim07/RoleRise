@@ -3,12 +3,14 @@ import { FormEvent, ReactNode, useEffect, useState } from "react";
 import { ArrowRight, Bell, BriefcaseBusiness, Bookmark, CalendarDays, Check, Compass, FileText, LogOut, MapPin, Pencil, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
 import { canWithdraw, statusClass } from "./domain";
 
-interface ImportMetaEnv {
-  readonly VITE_API_BASE_URL?: string;
-}
+declare global {
+  interface ImportMetaEnv {
+    readonly VITE_API_BASE_URL?: string;
+  }
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
 }
 
 type User = { id: number; email: string };
