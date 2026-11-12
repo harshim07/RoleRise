@@ -9,7 +9,7 @@ type Application = { id: number; status: string; created_at: string; cover_lette
 type ApplicationAction = {id:number;type:"interview"|"offer";status:string;scheduled_at:string|null;meeting_url:string;details:string;application_id:number;job_title:string;company:string};
 type SavedSearch = {id:number;query:string;location:string;skill:string;employment_type:string;experience:string;is_active:boolean};
 type CandidateProfileSummary = {full_name:string;phone:string;contact_email:string|null;email:string;resume_path:string|null;resume_filename:string|null;resume_uploaded_at:string|null;resume_content_type:string|null;resume_text:string};
-const api = import.meta.env.VITE_API_BASE_URL || "https://role-rise-backend.vercel.app";;
+const api = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 const tokenKey = "jt-access-token";
 
 function routeFromLocation() {
