@@ -1,6 +1,15 @@
+/// <reference types="vite/client" />
 import { FormEvent, ReactNode, useEffect, useState } from "react";
 import { ArrowRight, Bell, BriefcaseBusiness, Bookmark, CalendarDays, Check, Compass, FileText, LogOut, MapPin, Pencil, Plus, Search, ShieldCheck, Sparkles, Trash2, X } from "lucide-react";
 import { canWithdraw, statusClass } from "./domain";
+
+interface ImportMetaEnv {
+  readonly VITE_API_BASE_URL?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
 
 type User = { id: number; email: string };
 type ScreeningQuestion = {id:string;label:string;type:"select"|"text";required?:boolean;options?:string[]};
@@ -9,7 +18,9 @@ type Application = { id: number; status: string; created_at: string; cover_lette
 type ApplicationAction = {id:number;type:"interview"|"offer";status:string;scheduled_at:string|null;meeting_url:string;details:string;application_id:number;job_title:string;company:string};
 type SavedSearch = {id:number;query:string;location:string;skill:string;employment_type:string;experience:string;is_active:boolean};
 type CandidateProfileSummary = {full_name:string;phone:string;contact_email:string|null;email:string;resume_path:string|null;resume_filename:string|null;resume_uploaded_at:string|null;resume_content_type:string|null;resume_text:string};
-const api = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+
+// Replace the fallback URL below with your exact deployed backend URL if not set in Vercel Environment Variables
+const api = (import.meta.env.VITE_API_BASE_URL || "https://role-rise-backend.onrender.com").replace(/\/+$/, "");
 const tokenKey = "jt-access-token";
 
 function routeFromLocation() {
