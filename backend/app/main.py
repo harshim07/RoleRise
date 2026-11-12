@@ -30,7 +30,7 @@ from .security import create_access_token, decode_access_token, password_hash
 
 app = FastAPI(title="RoleRise API", version="1.0.0")
 # Clean up whitespace from split origins
-origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,https://role-rise-frontend.vercel.app").split(",") if origin.strip()]
+origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,https://role-rise-9ad7.vercel.app/").split(",") if origin.strip()]
 
 app.add_middleware(
     CORSMiddleware,
